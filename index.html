@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Group Automation Demo</title>
+
+    <style>
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f5f7fb;
+            padding: 40px;
+        }
+
+        .card {
+            max-width: 800px;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            border: 1px solid #d1d5db;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .option-btn:hover {
+            border-color: #2563eb;
+        }
+
+        .option-btn.selected {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .status-panel {
+            margin-top: 20px;
+            padding: 12px;
+            background: #eef4ff;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .meta {
+            margin-top: 12px;
+            color: #666;
+        }
+
+        .locator-info {
+            margin-top: 30px;
+            padding: 16px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Automation Testing Demo</h2>
+
+    <p>
+        This page is intentionally created for automation testing of button group selection actions.
+    </p>
+
+    <div
+        id="ui-identifier"
+        class="button-group"
+        role="group"
+        aria-label="User Role Selection"
+        data-testid="role-button-group">
+
+        <button
+            class="option-btn"
+            role="button"
+            aria-pressed="false"
+            data-testid="role-admin"
+            data-value="Admin">
+            Admin
+        </button>
+
+        <button
+            class="option-btn"
+            role="button"
+            aria-pressed="false"
+            data-testid="role-manager"
+            data-value="Manager">
+            Manager
+        </button>
+
+        <button
+            class="option-btn"
+            role="button"
+            aria-pressed="false"
+            data-testid="role-test-data-user"
+            data-value="Premium test-data User">
+            Premium test-data User
+        </button>
+
+        <button
+            class="option-btn"
+            role="button"
+            aria-pressed="false"
+            data-testid="role-guest"
+            data-value="Guest">
+            Guest
+        </button>
+
+    </div>
+
+    <div
+        id="selection-status"
+        class="status-panel"
+        aria-live="polite"
+        data-testid="selection-status">
+        No role selected
+    </div>
+
+    <div class="meta">
+        Button Group ID:
+        <strong>ui-identifier</strong>
+    </div>
+
+    <div class="locator-info">
+        <h3>Automation Locators</h3>
+
+        <p>
+            Button Group:
+            <code>#ui-identifier</code>
+        </p>
+
+        <p>
+            Test Data Button:
+            <code>Premium test-data User</code>
+        </p>
+
+        <p>
+            Test ID:
+            <code>role-test-data-user</code>
+        </p>
+
+        <p>
+            Status:
+            <code>selection-status</code>
+        </p>
+    </div>
+
+</div>
+
+<script>
+
+    const buttons = document.querySelectorAll(
+        '#ui-identifier .option-btn'
+    );
+
+    const status = document.getElementById(
+        'selection-status'
+    );
+
+    buttons.forEach(button => {
+
+        button.addEventListener('click', () => {
+
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+
+            button.classList.add('selected');
+            button.setAttribute('aria-pressed', 'true');
+
+            status.textContent =
+                `Selected Role: ${button.textContent.trim()}`;
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
